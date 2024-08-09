@@ -2,7 +2,7 @@ import User from "../models/User.js"
 
 
 
-const findUserByProperty = (key: string, value: string) => {
+const findUserByProperty = (key: string, value: number) => {
   if (key == '_id') {
     return User.findById(value)
   }

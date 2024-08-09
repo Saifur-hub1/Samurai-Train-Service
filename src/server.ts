@@ -1,11 +1,13 @@
 import express, {Express, Request, Response, NextFunction} from 'express'
 import connectDB from './DatabaseConnection/db.js';
 import routes from './routes/index.js';
-
+import morgan from 'morgan'
+  
 const port = 3000;
  
 const app: Express = express();
 
+app.use(morgan('combined'))
 app.use(express.json());
 app.use(routes);
 
