@@ -13,7 +13,16 @@ const createNewStation = ({ station_id, station_name, longitude, latitude }: sta
   return station.save();
 }
 
+const findStations = async ()=> {
+  const allStation = await stationModel.find();
+  const stationArrayObject: Record<string, Array<Object>> = {
+    stations: allStation
+  }
+  return stationArrayObject;
+}
+
 export default {
   findStationByProperty,
-  createNewStation
+  createNewStation,
+  findStations
 }

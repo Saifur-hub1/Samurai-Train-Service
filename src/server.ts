@@ -1,4 +1,10 @@
-import express, {Express, Request, Response, NextFunction} from 'express'
+/**
+ * Date: 09/08/2024
+ * Time: 9:16:12 PM
+ * Copyright (C) 2024-2025 Saifur Rahman
+ */
+
+import express, { Express, Request, Response, NextFunction } from 'express'
 import connectDB from './DatabaseConnection/db.js';
 import routes from './routes/index.js';
 import morgan from 'morgan'
