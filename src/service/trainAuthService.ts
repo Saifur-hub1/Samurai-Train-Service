@@ -12,5 +12,5 @@ const registerTrain = async ({train_id, train_name, capacity, stops}: trainPrope
 }
 
 export default {
-  registerTrain
+  registerTrain,
 };

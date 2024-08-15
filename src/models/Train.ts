@@ -6,18 +6,18 @@
 
 import { Document, Schema, model } from 'mongoose'
 
+interface Stop {
+  station_id: number,
+  arrival_time: Date | null,
+  departure_time: Date | null,
+  fare: number
+}
+
 export interface Train extends Document{
   train_id: number,
   train_name: string,
   capacity: number,
-  stops: [
-    {
-      station_id: number,
-      arrival_time: Date,
-      departure_time: Date,
-      fare: number
-    }
-  ]
+  stops: Stop[]
 }
 
 const trainSchema = new Schema<Train>({
@@ -44,6 +44,10 @@ const trainSchema = new Schema<Train>({
     }
   ]
 })
+
+const demoAsync = async () => {
+  
+}
 
 const trainModel = model<Train>('Train', trainSchema);
 

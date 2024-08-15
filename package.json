@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/server.js",
-    "dev": "npm-run-all build --parallel watch",
-    "watch": "nodemon --watch 'src/**/*.ts' --exec 'tsc && node ./dist/server.js'"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && node ./dist/server.js'",
+    "watch": "npm run dev"
   },
   "keywords": [],
   "author": "",

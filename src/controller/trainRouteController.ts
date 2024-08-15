@@ -8,7 +8,7 @@ import { Request, Response, NextFunction } from 'express';
 import train from '../service/trainAuthService.js'
 import trainService from '../service/train.js'
 
-const { calculateStops } = trainService;
+const { calculateStops, findTrainAtStation } = trainService;
 const { registerTrain } = train;
 
 const postTrain = async (req: Request, res: Response, next: NextFunction) => {
@@ -29,6 +29,15 @@ const postTrain = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const getTrainByStationid = async (req: Request, res: Response, next: NextFunction) => {
+  const station_id: string = (req.params.station_id);
+  const trainList = await findTrainAtStation(station_id);
+  console.log(station_id)
+  // const d = JSON.stringify(trainList);
+  res.status(200).send(trainList);
+}
+
 export default {
-  postTrain
+  postTrain,
+  getTrainByStationid
 };

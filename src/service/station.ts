@@ -1,6 +1,6 @@
 import stationModel from "../models/Station.js"
 
-const findStationByProperty = (key: string, value: number) => {
+const findStationByProperty = (key: string, value: string) => {
   if (key == '_id') {
     return stationModel.findById(value);
   }

@@ -7,9 +7,10 @@
 import { Router } from "express";
 import trainRouteController from "../controller/trainRouteController.js";
 
-const { postTrain } = trainRouteController;
+const { postTrain, getTrainByStationid } = trainRouteController;
 const router = Router();
 
 router.post('/', postTrain);
+router.get(`/stations/:station_id/trains`, getTrainByStationid)
 
 export default router;
