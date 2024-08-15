@@ -25,8 +25,8 @@ const calculateStops = (stops: trainProperties['stops']) => {
   }
 }
 
-const createNewTrain = ({train_id, train_name, capacity, stops}: trainProperties) => {
-  const train = new trainModel({ train_id, train_name, capacity, stops });
+const createNewTrain = (Train: trainProperties) => {
+  const train = new trainModel(Train);
 
   return train.save();
 }
@@ -55,7 +55,7 @@ const sortFunction = <T extends Train>(trains: T[]): T[] => {
   return sortedResult;
 }
 
-const formatToTrainList = (result: trainProperties[], stationId: string): trainList => {
+const formatToTrainList = (result: trainProperties[], stationId: stationIdType): trainList => {
   const trains: Train[] = result.flatMap(
     train => {
       return train.stops
@@ -76,7 +76,7 @@ const formatToTrainList = (result: trainProperties[], stationId: string): trainL
   };
 }
 
-const findTrainAtStation = async (stationId: string) => {
+const findTrainAtStation = async (stationId: stationIdType) => {
   const result: trainProperties[] = await trainModel.find({'stops.station_id': stationId});
   
   const formatedList: trainList = formatToTrainList(result, stationId)

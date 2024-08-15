@@ -7,21 +7,22 @@
 import { Request, Response, NextFunction } from 'express';
 import train from '../service/trainAuthService.js'
 import trainService from '../service/train.js'
+import station from '../service/station.js';
 
 const { calculateStops, findTrainAtStation } = trainService;
 const { registerTrain } = train;
+const { findStationByProperty } = station;
 
 const postTrain = async (req: Request, res: Response, next: NextFunction) => {
-  const { train_id, train_name, capacity, stops }: trainProperties = req.body;
-  
   try {
-    await registerTrain({ train_id, train_name, capacity, stops });
+    const Train: trainProperties = req.body;
+    await registerTrain(Train);
     const train = {
-      train_id,
-      train_name,
-      capacity,
-      ...calculateStops(stops),
-      num_stations: stops.length
+      train_id: Train.train_id,
+      train_name: Train.train_name,
+      capacity: Train.capacity,
+      ...calculateStops(Train.stops),
+      num_stations: Train.stops.length
     }
     res.status(201).json(train);
   } catch (e) {
@@ -30,11 +31,18 @@ const postTrain = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const getTrainByStationid = async (req: Request, res: Response, next: NextFunction) => {
-  const station_id: string = (req.params.station_id);
-  const trainList = await findTrainAtStation(station_id);
-  console.log(station_id)
-  // const d = JSON.stringify(trainList);
-  res.status(200).send(trainList);
+  try {
+    const station_id: stationIdType = (req.params.station_id);
+    const stationExist = findStationByProperty('station_id', station_id);
+    if (!stationExist) {
+      res.status(404).json({ message: `Station with id: ${station_id} was not found` })
+    }
+    const trainList = await findTrainAtStation(station_id);
+    console.log(station_id)
+    res.status(200).send(trainList);
+  } catch(error) {
+    next(error);
+  }
 }
 
 export default {

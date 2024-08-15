@@ -2,11 +2,11 @@ import User from "../models/User.js"
 
 
 
-const findUserByProperty = (key: string, value: number) => {
+const findUserByProperty = async (key: string, value: number) => {
   if (key == '_id') {
-    return User.findById(value)
+    return await User.findById(value)
   }
-  return User.findOne({ [key]: value })
+  return await User.findOne({ [key]: value })
 }
 
 const createNewUser = ({ user_id, user_name, password, balance }: userProperties) => {

@@ -5,7 +5,7 @@ interface CustomError extends Error{
 const error = (msg = 'Something Went Wrong', status = 500): CustomError => {
   const e: CustomError = new Error(msg) as CustomError;
   e.status = status;
-  return e;
+  throw e;
 }
 
 export default error;

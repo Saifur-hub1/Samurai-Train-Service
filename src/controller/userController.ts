@@ -11,9 +11,9 @@ import error from "../utils/error.js";
 const { registerService } = authService;
 
 const postUsers = async (req: Request, res: Response, next: NextFunction) => {
-  const { user_id, user_name, password, balance }: userProperties = req.body;
+  const User: userProperties = req.body;
   try {
-    const user = await registerService({ user_id, user_name, password, balance });
+    const user = await registerService(User);
     return res.status(201).json(user);
   } catch(e) {
     next(e);
